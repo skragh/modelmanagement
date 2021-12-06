@@ -3,8 +3,10 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\components"
+    "\\src\\components",
+    "\\src\\router",
+    "\\src\\views"
   ],
-  "SelectedNode": "\\src\\main.js",
+  "SelectedNode": "\\src\\components\\AddJob.vue",
   "PreviewInSolutionExplorer": false
 }

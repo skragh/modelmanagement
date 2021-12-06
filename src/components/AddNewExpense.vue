@@ -1,30 +1,22 @@
 
 <template>
-    <div v-if="role === 'Manager'">
-        <form name="registerJobForm" v-on:submit.prevent="registerJob">
+    <div v-if="role === 'Model'">
+        <form name="registerNewExpenseForm" v-on:submit.prevent="registerNewExpense">
 
             <div>
-                <label>Customer: </label>
-                <input v-model="Customer" placeholder="Customer" />
+                <label>Date: </label>
+                <input type="datetime-local" v-model="Date" placeholder="Date" />
             </div>
             <div>
-                <label>StartDate </label>
-                <input type="datetime-local" v-model="StartDate" placeholder="Start Date" />
+                <label>Text: </label>
+                <input v-model="Text" placeholder="Text" />
             </div>
             <div>
-                <label>Days: </label>
-                <input v-model="days" placeholder="Number of days" />
+                <label>Amount: </label>
+                <input v-model="amount" placeholder="amount" />
             </div>
             <div>
-                <label>Location: </label>
-                <input v-model="Location" placeholder="Location" />
-            </div>
-            <div>
-                <label>Comments: </label>
-                <input v-model="comments" placeholder="Comment" />
-            </div>
-            <div>
-                <input type="submit" value="Add Job" />
+                <input type="submit" value="Add Expense" />
             </div>
         </form>
     </div>
@@ -36,14 +28,12 @@
 
 <script>
     export default {
-        name: "AddJob",
+        name: "AddNewExpense",
         data() {
             return {
-                Customer: "",
-                startDate: new Date,
-                days: 0,
-                Location: "",
-                comments: "",
+                Date: new Date,
+                Text: "",
+                Amount: 0,
                 role: "",
             }
         },
@@ -64,19 +54,17 @@
                 vm.role = payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
             },
 
-            async registerJob() {
-                let job = {
-                    "Customer": this.Customer,
-                    "startDate": this.startDate,
-                    "days": this.days,
-                    "Location": this.Location,
-                    "comments": this.comments
+            async registerNewExpense() {
+                let newExpense = {
+                    "Date": this.Date,
+                    "Text": this.Text,
+                    "amount": this.amount,
                 }
-                let url = "https://localhost:44368/api/jobs";
+                let url = "https://localhost:44368/api/expenses";
                 try {
                     let response = await fetch(url, {
                         method: 'POST', // Or PUT
-                        body: JSON.stringify(job),
+                        body: JSON.stringify(newExpense),
                         credentials: 'include',
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem("token"),
@@ -85,7 +73,7 @@
                     })
 
                     if (response.ok) {
-                        alert("Successfully created job for " + job.Customer + " at " + job.Location)
+                        alert("Successfully created expense: " + newExpense.amount + " for " + newExpense.Text)
 
                     } else {
                         alert("Server returned: " + response.statusText);
