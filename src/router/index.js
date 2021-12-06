@@ -27,6 +27,11 @@ const routes = [
         path: '/AddManager',
         name: 'Add Manager',
         component: () => import('../components/AddManager.vue')
+    },
+    {
+        path: '/AddModel',
+        name: 'Add Model',
+        component: () => import('../components/AddModel.vue')
     }
 ]
 
