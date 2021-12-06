@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\src"
+    "\\src",
+    "\\src\\components"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\src\\main.js",
   "PreviewInSolutionExplorer": false
 }
