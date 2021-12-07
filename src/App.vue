@@ -3,7 +3,7 @@
     <div id="nav">
         <router-link to="/">Home </router-link>
         <router-link to="/login" v-if="login === ''">| Login </router-link> 
-        <router-link to="/showjobs" v-if="login === 'Model'">| Jobs </router-link> 
+        <router-link to="/showjobs" v-if="login !=''">| Jobs </router-link> 
         <router-link to="/addmodel" v-if="login === 'Manager'">| Add Model </router-link> 
         <router-link to="/addmanager" v-if="login === 'Manager'">| Add Manager </router-link> 
         <router-link to="/addjob" v-if="login === 'Manager'">| Add Job </router-link> 
