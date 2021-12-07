@@ -4,19 +4,19 @@
         <form name="registerModelForm" v-on:submit.prevent="registerModel">
 
             <div>
-                <label>First Name: </label>
+                <label>First Name: </label><br/>
                 <input v-model="firstName" placeholder="First Name" />
             </div>
             <div>
-                <label>Last Name: </label>
+                <label>Last Name: </label><br />
                 <input v-model="lastName" placeholder="Last Name" />
             </div>
             <div>
-                <label>Email: </label>
+                <label>Email: </label><br />
                 <input type="email" v-model="email" placeholder="Email" />
             </div>
             <div>
-                <label>Password: </label>
+                <label>Password: </label><br />
                 <input type="password" v-model="password" placeholder="Password" />
             </div>
             <div>
