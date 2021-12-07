@@ -6,8 +6,10 @@
                 <th>{{job.customer}}</th>
                 <th>{{job.startDate}}</th>
                 <th>{{job.days}}</th>
+                <th><router-link to="/EditJob">Edit</router-link></th>
                 <!--Bind for hver to go and send where to go-->
             </tr>
+
         </table>
     </div>
 </template>
