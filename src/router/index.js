@@ -47,6 +47,11 @@ const routes = [
         path: '/AddNewExpense',
         name: 'Add New Expense',
         component: () => import('../components/AddNewExpense.vue')
+    },
+    {
+        path: '/EditJob',
+        name: 'Edit',
+        component: () => import('../components/EditJob.vue')
     }
 ]
 
