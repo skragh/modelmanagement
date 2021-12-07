@@ -1,15 +1,13 @@
 <template>
     <form name="loginForm" v-on:submit.prevent="login">
         <div>
-            <label>Email</label>
-            <input type="email" v-model="email" />
+            <input type="email" v-model="email" placeholder="E-mail" />
         </div>
         <div>
-            <label>Password</label>
-            <input type="password" v-model="password" />
+            <input type="password" v-model="password" placeholder="Password"/>
         </div>
         <div>
-            <input type="submit" value="Login" />
+            <input type="submit" value="Login" id="register"/>
         </div>
     </form>
 </template>
@@ -46,6 +44,7 @@
                         // Åc
                         console.log("succesful login");
                         console.log(token.jwt);
+                        window.location.replace("/");
 
                     } else {
                         alert("Server returned: " + response.statusText);
@@ -59,3 +58,19 @@
     }
 </script>
 
+<style>
+    input {
+        text-align: center;
+        min-width: 25em;
+        padding-block: 10px;
+        margin: 3px;
+    }
+    #register {
+        align-self: center;
+        padding-block: 10px;
+        min-width: 5em;
+        width: 20px;
+        margin: 5px;
+    }
+
+</style>
