@@ -1,14 +1,15 @@
 <template>
   <div id="app">
-      <div id="nav">
-          <router-link to="/">Home</router-link> |
-          <router-link to="/about">About</router-link> |
-          <router-link to="/login">Login</router-link> |
-          <router-link to="/addmodel">Add Model</router-link> |
-          <router-link to="/addmanager">Add Manager</router-link> |
-          <router-link to="/addjob">Add Job</router-link> | 
-          <router-link to="/addnewexpense">Add New Expense</router-link>
-      </div>
+    <div id="nav">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link> |
+        <router-link to="/login">Login</router-link> |
+        <router-link to="/showjobs">Jobs</router-link> | 
+        <router-link to="/addmodel">Add Model</router-link> |
+        <router-link to="/addmanager">Add Manager</router-link> |
+        <router-link to="/addjob">Add Job</router-link> |
+        <router-link to="/addnewexpense">Add New Expense</router-link>
+    </div>
     <router-view/>
   </div>
 </template>
