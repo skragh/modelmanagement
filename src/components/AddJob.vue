@@ -4,23 +4,23 @@
         <form name="registerJobForm" v-on:submit.prevent="registerJob">
 
             <div>
-                <label>Customer: </label>
+                <label>Customer: </label><br />
                 <input v-model="Customer" placeholder="Customer" />
             </div>
             <div>
-                <label>StartDate </label>
+                <label>Start Date: </label><br />
                 <input type="datetime-local" v-model="StartDate" placeholder="Start Date" />
             </div>
             <div>
-                <label>Days: </label>
+                <label>Days: </label><br />
                 <input type="number" v-model="days" placeholder="Number of days" />
             </div>
             <div>
-                <label>Location: </label>
+                <label>Location: </label><br />
                 <input v-model="Location" placeholder="Location" />
             </div>
             <div>
-                <label>Comments: </label>
+                <label>Comments: </label><br />
                 <input v-model="comments" placeholder="Comment" />
             </div>
             <div>
@@ -67,7 +67,7 @@
             async registerJob() {
                 let job = {
                     "Customer": this.Customer,
-                    "startDate": this.startDate,
+                    "StartDate": this.startDate,
                     "days": this.days,
                     "Location": this.Location,
                     "comments": this.comments

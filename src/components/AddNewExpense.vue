@@ -4,16 +4,20 @@
         <form name="registerNewExpenseForm" v-on:submit.prevent="registerNewExpense">
 
             <div>
-                <label>Date: </label>
+                <label>Date: </label><br />
                 <input type="datetime-local" v-model="Date" placeholder="Date" />
             </div>
             <div>
-                <label>Text: </label>
+                <label>Text: </label><br />
                 <input v-model="Text" placeholder="Text" />
             </div>
             <div>
-                <label>Amount: </label>
+                <label>Amount: </label><br />
                 <input type="number" v-model="amount" placeholder="amount" />
+            </div>
+            <div>
+                <label>JobID: </label><br />
+                <input v-model="JobId" placeholder="Job ID" />
             </div>
             <div>
                 <input type="submit" value="Add Expense to job" />
