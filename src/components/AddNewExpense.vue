@@ -13,10 +13,10 @@
             </div>
             <div>
                 <label>Amount: </label>
-                <input v-model="amount" placeholder="amount" />
+                <input type="number" v-model="amount" placeholder="amount" />
             </div>
             <div>
-                <input type="submit" value="Add Expense" />
+                <input type="submit" value="Add Expense to job" />
             </div>
         </form>
     </div>

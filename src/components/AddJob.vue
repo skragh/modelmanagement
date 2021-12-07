@@ -13,7 +13,7 @@
             </div>
             <div>
                 <label>Days: </label>
-                <input v-model="days" placeholder="Number of days" />
+                <input type="number" v-model="days" placeholder="Number of days" />
             </div>
             <div>
                 <label>Location: </label>
