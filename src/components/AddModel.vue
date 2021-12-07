@@ -5,22 +5,22 @@
 
             <div>
                 <!--<label>First Name: </label><br/>-->
-                <input class="input" v-model="firstName" placeholder="First Name" />
+                <input v-model="firstName" placeholder="First Name" />
             </div>
-            <div><br />
+            <div>
                 <!--<label>Last Name: </label><br />-->
-                <input class="input" v-model="lastName" placeholder="Last Name" />
+                <input v-model="lastName" placeholder="Last Name" />
             </div>
-            <div><br />
+            <div>
                 <!--<label>Email: </label><br />-->
-                <input class="input" type="email" v-model="email" placeholder="Email" />
+                <input type="email" v-model="email" placeholder="Email" />
             </div>
-            <div><br />
+            <div>
                 <!--<label>Password: </label><br />-->
-                <input class="input" type="password" v-model="password" placeholder="Password" />
+                <input type="password" v-model="password" placeholder="Password" />
             </div>
-            <div class="Register_Button"><br/>
-                <input type="submit" value="Register" />
+            <div>
+                <input class="Register_Button" type="submit" value="Register" />
             </div>
         </form>
     </div>
@@ -109,20 +109,20 @@
         margin-left: 10%;
         margin-right:10%;
     }
-    label{
-        font-family: Bahnschrift;
-        font-size:15px;
-    }
     input {
-        font-family: Bahnschrift;
+        /*font-family: Bahnschrift;*/
         text-align: center;
-        width: 100%;
-        padding: 10px;
-        min-height:20px;
+        /*min-height: 20px;*/
+        min-width: 25em;
+        padding-block: 10px;
+        margin: 3px;
     }
     .Register_Button {
         text-align: center;
-        width: 100%;
-        padding: 10px;
+        align-self: center;
+        /*width: 10%;
+        max-width: 10%;*/
+        min-width: 5em;
+        width: 20px;
     }
 </style>
