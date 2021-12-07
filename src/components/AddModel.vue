@@ -4,22 +4,22 @@
         <form name="registerModelForm" v-on:submit.prevent="registerModel">
 
             <div>
-                <label>First Name: </label><br/>
-                <input v-model="firstName" placeholder="First Name" />
+                <!--<label>First Name: </label><br/>-->
+                <input class="input" v-model="firstName" placeholder="First Name" />
             </div>
-            <div>
-                <label>Last Name: </label><br />
-                <input v-model="lastName" placeholder="Last Name" />
+            <div><br />
+                <!--<label>Last Name: </label><br />-->
+                <input class="input" v-model="lastName" placeholder="Last Name" />
             </div>
-            <div>
-                <label>Email: </label><br />
-                <input type="email" v-model="email" placeholder="Email" />
+            <div><br />
+                <!--<label>Email: </label><br />-->
+                <input class="input" type="email" v-model="email" placeholder="Email" />
             </div>
-            <div>
-                <label>Password: </label><br />
-                <input type="password" v-model="password" placeholder="Password" />
+            <div><br />
+                <!--<label>Password: </label><br />-->
+                <input class="input" type="password" v-model="password" placeholder="Password" />
             </div>
-            <div>
+            <div class="Register_Button"><br/>
                 <input type="submit" value="Register" />
             </div>
         </form>
@@ -103,4 +103,26 @@
     }
 </script>
 
-
+<style scoped>
+    form{
+        width: 80%;
+        margin-left: 10%;
+        margin-right:10%;
+    }
+    label{
+        font-family: Bahnschrift;
+        font-size:15px;
+    }
+    input {
+        font-family: Bahnschrift;
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+        min-height:20px;
+    }
+    .Register_Button {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+    }
+</style>
