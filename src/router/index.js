@@ -28,6 +28,28 @@ const routes = [
         name: 'ShowJobs',
         component: () => import('../components/ShowJobs.vue')
 }
+        component: () => import('../components/Login.vue')
+    },
+    {
+        path: '/AddManager',
+        name: 'Add Manager',
+        component: () => import('../components/AddManager.vue')
+    },
+    {
+        path: '/AddModel',
+        name: 'Add Model',
+        component: () => import('../components/AddModel.vue')
+    },
+    {
+        path: '/AddJob',
+        name: 'Add Job',
+        component: () => import('../components/AddJob.vue')
+    },
+    {
+        path: '/AddNewExpense',
+        name: 'Add New Expense',
+        component: () => import('../components/AddNewExpense.vue')
+    }
 ]
 
 const router = new VueRouter({

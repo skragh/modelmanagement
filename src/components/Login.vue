@@ -14,7 +14,6 @@
     </form>
 </template>
 
-
 <script>
     export default {
         data() {
@@ -39,6 +38,7 @@
                             "Content-Type": "application/json"
                         })
                     });
+                    
                     if (response.ok) {
                         let token = await response.json();
                         localStorage.setItem("token", token.jwt);
