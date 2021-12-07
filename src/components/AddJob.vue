@@ -110,3 +110,28 @@
 </script>
 
 
+<style scoped>
+    form {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    input {
+        /*font-family: Bahnschrift;*/
+        text-align: center;
+        /*min-height: 20px;*/
+        min-width: 25em;
+        padding-block: 10px;
+        margin: 3px;
+    }
+
+    .Register_Button {
+        text-align: center;
+        align-self: center;
+        /*width: 10%;
+        max-width: 10%;*/
+        min-width: 5em;
+        width: 20px;
+    }
+</style>
