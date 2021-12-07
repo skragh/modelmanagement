@@ -4,23 +4,19 @@
         <form name="registerManagerForm" v-on:submit.prevent="registerManager">
 
             <div>
-                <label>First Name: </label>
                 <input v-model="firstName" placeholder="First Name" />
             </div>
             <div>
-                <label>Last Name: </label>
                 <input v-model="lastName" placeholder="Last Name" />
             </div>
             <div>
-                <label>Email: </label>
                 <input type="email" v-model="email" placeholder="Email" />
             </div>
             <div>
-                <label>Password: </label>
                 <input type="password" v-model="password" placeholder="Password" />
             </div>
-            <div>
-                <input type="submit" value="Register" />
+            <div >
+                <input type="submit" value="Register" id="register"/>
             </div>
         </form>
     </div>
@@ -28,7 +24,6 @@
         You are not authorized to view this page
     </div>
 </template>
-
 
 <script>
     export default {
@@ -103,4 +98,23 @@
     }
 </script>
 
+<style scoped>
+    
+
+    input {
+        text-align: center;
+        min-width: 25em;
+        padding-block: 10px;
+        margin: 3px;
+    }
+
+    #register { 
+        align-self: center;
+        padding-block: 10px;
+        min-width: 5em;
+        width: 20px;
+        margin: 5px;
+    }
+
+</style>
 
