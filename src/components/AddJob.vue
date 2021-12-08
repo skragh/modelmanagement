@@ -5,11 +5,11 @@
             <br/>
             <div>
                 <label>Customer: </label><br />
-                <input v-model="Customer" placeholder="Customer" />
+                <input v-model="customer" placeholder="Customer" />
             </div>
             <div>
                 <label>Start Date: </label><br />
-                <input type="datetime-local" v-model="StartDate" placeholder="Start Date" />
+                <input type="datetime-local" v-model="startDate" placeholder="Start Date" />
             </div>
             <div>
                 <label>Days: </label><br />
@@ -17,7 +17,7 @@
             </div>
             <div>
                 <label>Location: </label><br />
-                <input v-model="Location" placeholder="Location" />
+                <input v-model="location" placeholder="Location" />
             </div>
             <div>
                 <label>Comments: </label><br />
@@ -39,10 +39,10 @@
         name: "AddJob",
         data() {
             return {
-                Customer: "",
+                customer: "",
                 startDate: new Date,
                 days: 0,
-                Location: "",
+                location: "",
                 comments: "",
                 role: "",
             }
@@ -66,10 +66,10 @@
 
             async registerJob() {
                 let job = {
-                    "Customer": this.Customer,
-                    "StartDate": this.startDate,
+                    "customer": this.customer,
+                    "startDate": this.startDate,
                     "days": parseInt(this.days),
-                    "Location": this.Location,
+                    "location": this.location,
                     "comments": this.comments
                 }
                 let url = "https://localhost:44368/api/jobs";
@@ -85,7 +85,7 @@
                     })
 
                     if (response.ok) {
-                        alert("Successfully created job for " + job.Customer + " at " + job.Location)
+                        alert("Successfully created job for " + job.customer + " at " + job.location)
 
                     } else {
                         alert("Server returned: " + response.statusText);
