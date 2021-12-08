@@ -1,12 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
     "\\src",
     "\\src\\components",
     "\\src\\router",
     "\\src\\views"
   ],
-  "SelectedNode": "\\src\\router\\index.js",
+  "SelectedNode": "\\src\\components\\AddNewExpense.vue",
   "PreviewInSolutionExplorer": false
 }
