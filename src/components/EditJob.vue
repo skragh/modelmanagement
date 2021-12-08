@@ -4,63 +4,65 @@
         <br />
         <h1>
             Edit Job for:
-            {{responseJob.customer}}
+            {{job.customer}}
         </h1>
-            
+        <p>Startdate: {{jobDate}}</p>
         <br />
+        <div id="tablediv">
+            <table>
+                <tr>
+                    <td>
+                        <form name="editJobForm" v-on:submit.prevent="removeModel">
+                            <label>Remove a model: </label>
+                            <select class="form-control" @change="selectModel($event)">
+                                <option value="" selected disabled>Choose Model to remove</option>
+                                <option v-for="model in job.models"
+                                        :value="model.email"
+                                        :key="model.firstName">
+                                    {{model.firstName}} {{model.lastName}}
+                                </option>
+                            </select>
+                            <br />
+                            <input type="submit" value="Remove Model" />
+                        </form>
+                    </td>
+                    <td>
+                        <form name="editJobFormAdd" v-on:submit.prevent="addModel">
+                            <label>Add a model: </label>
+                            <select class="form-control" @change="selectModelAdd($event)">
+                                <option value="" selected disabled>Choose Model to add</option>
+                                <option v-for="model in responseModels"
+                                        :value="model.efModelId"
+                                        :key="model.firstName">
+                                    {{model.firstName}} {{model.lastName}}
+                                </option>
+                            </select>
+                            <br />
+                            <input type="submit" value="Add Model" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
         
-        <form name="editJobForm" v-on:submit.prevent="removeModel">
-            <div>
-                <label>Remove a model from the list</label>
-            </div>
-            <div id="app">
-                <select class="form-control" @change="selectModel($event)">
-                    <option value="" selected disabled>Choose Model to remove</option>
-                    <option v-for="model in responseJob.models"
-                            :value="model.email"
-                            :key="model.firstName">
-                        {{model.firstName}} {{model.lastName}}
-                    </option>
-                </select>
-                <br><br>
-            </div>
-            <div>
-                <input type="submit" value="Remove Model" />
-            </div>
-        </form>
-        <br />
-        <br />
-        <form name="editJobFormAdd" v-on:submit.prevent="addModel">
-            <div>
-                <label>Add a model from the list</label><br />
-            </div>
-            <div id="app">
-                <select class="form-control" @change="selectModelAdd($event)">
-                    <option value="" selected disabled>Choose Model to add</option>
-                    <option v-for="model in responseModels"
-                            :value="model.efModelId"
-                            :key="model.firstName">
-                        {{model.firstName}} {{model.lastName}}
-                    </option>
-                </select>
-                <br><br>
-            </div>
-            <div>
-                <input type="submit" value="Add Model" />
-            </div>
-        </form>
     </div>
     <div v-else-if="role === 'Model'">
+        <div>
+            <p>Job: {{job.customer}}</p>
+            <p>Startdate: {{jobDate}}</p>
+            <p>Total expense: {{totalExpense}}</p>
+        </div>
+        
+
+        <h3>Add Expense: </h3>
         <form name="registerNewExpenseForm" v-on:submit.prevent="registerNewExpense">
-            <br />
-            <br />
             <div>
-                <label>Date: </label><br />
+                <label>Date of expense </label><br />
                 <input type="datetime-local" v-model="Date" placeholder="Date" />
             </div>
             <div>
-                <label>Text: </label><br />
-                <input v-model="Text" placeholder="Text" />
+                <label>Description of expense </label><br />
+                <input v-model="Text" placeholder="Describe expense here" />
             </div>
             <div>
                 <label>Amount: </label><br />
@@ -87,17 +89,22 @@
                 role: "",
                 Date: new Date,
                 Text: "",
-                amount: 0,
+                amount: null,
                 responseJob: {
                     jobId: "",
                     customer: "",
                     date: null
                 },
+                expenses: [{}],
+                totalExpense: 0,
+                job:[{}],
+                jobDate:null,
                 responseModels: {
                     modelId: "",
                     firstName: "",
                     lastName: ""
                 },
+                
                 selectedModelAdd: null,
 
                 loggedInModelId: null,
@@ -106,10 +113,11 @@
 
 
         mounted() {
-            this.isModel();
+            
             this.$nextTick(() => {
+            this.isModel();
+            this.showJob();
                 if (this.role === "Manager") {
-                    this.showJob();
                     this.showModels();
                 }
             });
@@ -119,14 +127,12 @@
             selectModel(event) {
                 this.selectedModel = event.target.options[event.target.options.selectedIndex].text
                 this.modelToRemoveEmail = event.target.options[event.target.options.selectedIndex].value
-                console.log(this.selectedModel);
             },
             selectModelAdd(event) {
                 this.selectedModelAdd = event.target.options[event.target.options.selectedIndex].value
-                console.log(this.selectedModelAdd);
             },
 
-            isModel() {
+            async isModel() {
 
                 let vm = this;
 
@@ -136,18 +142,37 @@
 
                 vm.role = payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
 
-                console.log(payload);
-
-                if (vm.role === "Model")
+                if (vm.role === "Model") {
                     vm.loggedInModelId = payload.ModelId;
+                    let url = "https://localhost:44368/api/Expenses/model/" + vm.loggedInModelId;
+                    try {
+                        let response = await fetch(url, {
+                            method: 'GET',
+                            credentials: 'include',
+                            headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem("token"),
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        this.expenses = await response.json();
+                        //only load relevant expenses
+                        for (var i = 0; i < this.expenses.length; i++) {
+                            if (this.expenses[i].jobId == sessionStorage.getItem("selectedJobId")) {
+                                this.totalExpense += this.expenses[i].amount;
+                            }
+                        }
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                }
+                    
 
 
             },
 
             async showJob() {
-                console.log(sessionStorage.getItem("selectedJobId"));
                 let url = "https://localhost:44368/api/jobs/" + sessionStorage.getItem("selectedJobId");
-                console.log(url);
                 try {
                     let response = await fetch(url, {
                         method: 'GET',
@@ -157,9 +182,10 @@
                             'Content-Type': 'application/json'
                         }
                     });
-                    this.responseJob = await response.json();
-
-                    console.log(this.responseJob);
+                    this.job = await response.json();
+                        let date = new Date(this.job.startDate);
+                        let temp = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+                        this.jobDate = temp;
                 }
                 catch (error) {
                     console.log(error);
@@ -196,10 +222,10 @@
                     })
 
                     if (response.ok) {
-                        alert("Successfully deleted selected model");
+                        console.log("Successfully deleted selected model");
                         location.reload();
                     } else {
-                        alert("Server returned: " + response.statusText);
+                        console.log("Server returned: " + response.statusText);
                     }
                 } catch (err) {
                     alert("Error: " + err);
@@ -220,8 +246,6 @@
                         }
                     });
                     this.responseModels = await response.json();
-
-                    console.log(this.responseModels);
                 }
                 catch (error) {
                     console.log(error);
@@ -245,11 +269,10 @@
                     })
 
                     if (response.ok) {
-                        alert("Successfully added selected model to the job")
                         location.reload();
 
                     } else {
-                        alert("Server returned: " + response.statusText);
+                        console.log("Server returned: " + response.statusText);
                     }
                 } catch (err) {
                     alert("Error: " + err);
@@ -307,20 +330,37 @@
 
 <style scoped>
     form {
+        align-content: center;
         width: 80%;
         margin-left: 10%;
         margin-right: 10%;
+
     }
 
     input {
         /*font-family: Bahnschrift;*/
         text-align: center;
         /*min-height: 20px;*/
-        min-width: 25em;
-        padding-block: 10px;
+        min-width: 10em;
+        width:10em;
+        max-height: 5em;
+        /*padding-block: 10px;*/
         margin: 3px;
     }
-
+    #tablediv {
+        display: flex;
+        text-align: center;
+        align-content: center;
+        justify-content: center;
+    }
+    table {
+        border: 1px solid black;
+        min-width:400px;
+        width:15em;
+    }
+    td {
+        padding:.3em;
+    }
     .Register_Button {
         text-align: center;
         align-self: center;

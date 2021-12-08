@@ -1,18 +1,14 @@
 <template>
   <div id="app">
-    <div id="nav">
-        <router-link to="/">Home </router-link>
-        <router-link to="/login" v-if="login === ''">| Login </router-link> 
-        <router-link to="/showjobs" v-if="login !=''">| Jobs </router-link> 
-        <router-link to="/addmodel" v-if="login === 'Manager'">| Add Model </router-link> 
-        <router-link to="/addmanager" v-if="login === 'Manager'">| Add Manager </router-link> 
-        <router-link to="/addjob" v-if="login === 'Manager'">| Add Job </router-link> 
-    </div>
-    <div v-if="login != ''">
-        <p>Logged in as {{login}}</p>
-        <button v-on:click="logOut()" v-if="login != ''">Logout</button>
-    </div>
-      <div v-else>Not logged in</div>
+      <div id="nav">
+          <router-link to="/"> Home </router-link>
+          <router-link to="/login" v-if="login === ''">| Login </router-link>
+          <router-link to="/addmodel" v-if="login === 'Manager'">| Add Model </router-link>
+          <router-link to="/addmanager" v-if="login === 'Manager'">| Add Manager </router-link>
+          <router-link to="/addjob" v-if="login === 'Manager'">| Add Job </router-link>
+          <router-link to="/showjobs" v-if="login !=''">| Jobs | </router-link>
+          <button v-on:click="logOut()" v-if="login != ''">Logout {{login}}</button>
+      </div>
     <router-view/>
   </div>
 </template>
