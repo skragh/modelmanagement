@@ -7,7 +7,6 @@
         <router-link to="/addmodel" v-if="login === 'Manager'">| Add Model </router-link> 
         <router-link to="/addmanager" v-if="login === 'Manager'">| Add Manager </router-link> 
         <router-link to="/addjob" v-if="login === 'Manager'">| Add Job </router-link> 
-        <router-link to="/addnewexpense" v-if="login === 'Model'">| Add New Expense </router-link>
     </div>
     <div v-if="login != ''">
         <p>Logged in as {{login}}</p>

@@ -2,10 +2,16 @@
 <template>
     <div v-if="role === 'Manager'">
         <br />
+        <h1>
+            Edit Job for:
+            {{responseJob.customer}}
+        </h1>
+            
         <br />
+        
         <form name="editJobForm" v-on:submit.prevent="removeModel">
             <div>
-                <label>Customer: {{responseJob.customer}}</label><br />
+                <label>Remove a model from the list</label>
             </div>
             <div id="app">
                 <select class="form-control" @change="selectModel($event)">
@@ -17,7 +23,6 @@
                     </option>
                 </select>
                 <br><br>
-                <p><span>Selected Model: {{ selectedModel }}</span></p>
             </div>
             <div>
                 <input type="submit" value="Remove Model" />
@@ -39,7 +44,6 @@
                     </option>
                 </select>
                 <br><br>
-                <p><span>Selected Model: {{ selectedModelAdd }}</span></p>
             </div>
             <div>
                 <input type="submit" value="Add Model" />
@@ -47,6 +51,27 @@
         </form>
     </div>
     <div v-else-if="role === 'Model'">
+        <form name="registerNewExpenseForm" v-on:submit.prevent="registerNewExpense">
+            <br />
+            <br />
+            <div>
+                <label>Date: </label><br />
+                <input type="datetime-local" v-model="Date" placeholder="Date" />
+            </div>
+            <div>
+                <label>Text: </label><br />
+                <input v-model="Text" placeholder="Text" />
+            </div>
+            <div>
+                <label>Amount: </label><br />
+                <input type="text" v-model="amount" placeholder="amount" />
+            </div>
+            <div>
+                <input class="Add_Button" type="submit" value="Add Expense to job" />
+            </div>
+        </form>
+    </div>
+    <div v-else>
         You are not authorized to view this page
     </div>
 </template>
@@ -60,6 +85,9 @@
                 selectedModel: null,
                 modelToRemoveEmail: null,
                 role: "",
+                Date: new Date,
+                Text: "",
+                amount: 0,
                 responseJob: {
                     jobId: "",
                     customer: "",
@@ -71,6 +99,8 @@
                     lastName: ""
                 },
                 selectedModelAdd: null,
+
+                loggedInModelId: null,
             }
         },
 
@@ -78,8 +108,10 @@
         mounted() {
             this.isModel();
             this.$nextTick(() => {
-                this.showJob();
-                this.showModels();
+                if (this.role === "Manager") {
+                    this.showJob();
+                    this.showModels();
+                }
             });
         },
 
@@ -103,6 +135,13 @@
                 let payload = this.parseJwt(token);
 
                 vm.role = payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+
+                console.log(payload);
+
+                if (vm.role === "Model")
+                    vm.loggedInModelId = payload.ModelId;
+
+
             },
 
             async showJob() {
@@ -132,7 +171,7 @@
 
                 let modelIdToRemove = null;
                 for (var i = 0; i < this.responseModels.length; i++) {
-                    if (this.modelToRemoveEmail == this.responseModels[i].email) {
+                    if (this.modelToRemoveEmail === this.responseModels[i].email) {
 
                         modelIdToRemove = this.responseModels[i].efModelId;
                         break;
@@ -218,6 +257,40 @@
                 return;
             },
 
+            async registerNewExpense() {
+                let newExpense = {
+                    "modelId": parseInt(this.loggedInModelId),
+                    "jobId": parseInt(sessionStorage.getItem("selectedJobId")),
+                    "date": this.Date,
+                    "text": this.Text,
+                    "amount": parseFloat(this.amount),
+                }
+
+                console.log(newExpense);
+
+                let url = "https://localhost:44368/api/expenses";
+                try {
+                    let response = await fetch(url, {
+                        method: 'POST', // Or PUT
+                        body: JSON.stringify(newExpense),
+                        credentials: 'include',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem("token"),
+                            'Content-Type': 'application/json'
+                        }
+                    })
+
+                    if (response.ok) {
+                        alert("Successfully created expense: " + newExpense.amount + " for " + newExpense.text)
+
+                    } else {
+                        alert("Server returned: " + response.statusText);
+                    }
+                } catch (err) {
+                    alert("Error: " + err);
+                }
+                return;
+            },
             parseJwt(token) {
                 var base64Url = token.split('.')[1];
                 var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
