@@ -62,7 +62,7 @@
                 let newExpense = {
                     "Date": this.Date,
                     "Text": this.Text,
-                    "amount": this.amount,
+                    "amount": parseInt(this.amount),
                 }
                 let url = "https://localhost:44368/api/expenses";
                 try {
