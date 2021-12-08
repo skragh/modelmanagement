@@ -68,7 +68,7 @@
                 let job = {
                     "Customer": this.Customer,
                     "StartDate": this.startDate,
-                    "days": this.days,
+                    "days": parseInt(this.days),
                     "Location": this.Location,
                     "comments": this.comments
                 }
