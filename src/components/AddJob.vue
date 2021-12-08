@@ -2,7 +2,7 @@
 <template>
     <div v-if="role === 'Manager'">
         <form name="registerJobForm" v-on:submit.prevent="registerJob">
-
+            <br/>
             <div>
                 <label>Customer: </label><br />
                 <input v-model="Customer" placeholder="Customer" />
@@ -24,7 +24,7 @@
                 <input v-model="comments" placeholder="Comment" />
             </div>
             <div>
-                <input type="submit" value="Add Job" />
+                <input class="Add_Button" type="submit" value="Add Job" />
             </div>
         </form>
     </div>
@@ -126,7 +126,7 @@
         margin: 3px;
     }
 
-    .Register_Button {
+    .Add_Button {
         text-align: center;
         align-self: center;
         /*width: 10%;

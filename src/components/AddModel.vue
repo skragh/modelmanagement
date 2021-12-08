@@ -2,7 +2,7 @@
 <template>
     <div v-if="role === 'Manager'">
         <form name="registerModelForm" v-on:submit.prevent="registerModel">
-
+            <br />
             <div>
                 <!--<label>First Name: </label><br/>-->
                 <input v-model="firstName" placeholder="First Name" />
