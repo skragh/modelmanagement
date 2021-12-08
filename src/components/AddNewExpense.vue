@@ -2,7 +2,7 @@
 <template>
     <div v-if="role === 'Model'">
         <form name="registerNewExpenseForm" v-on:submit.prevent="registerNewExpense">
-
+            <br/>
             <div>
                 <label>Date: </label><br />
                 <input type="datetime-local" v-model="Date" placeholder="Date" />
@@ -20,7 +20,7 @@
                 <input v-model="JobId" placeholder="Job ID" />
             </div>
             <div>
-                <input type="submit" value="Add Expense to job" />
+                <input class="Add_Button" type="submit" value="Add Expense to job" />
             </div>
         </form>
     </div>
@@ -102,3 +102,28 @@
 </script>
 
 
+<style scoped>
+    form {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    input {
+        /*font-family: Bahnschrift;*/
+        text-align: center;
+        /*min-height: 20px;*/
+        min-width: 25em;
+        padding-block: 10px;
+        margin: 3px;
+    }
+
+    .Add_Button {
+        text-align: center;
+        align-self: center;
+        /*width: 10%;
+        max-width: 10%;*/
+        min-width: 5em;
+        width: 150px;
+    }
+</style>
