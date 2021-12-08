@@ -3,18 +3,20 @@
         <h1>Jobs</h1>
         <div id="tableDiv">
             <table id="jobTable">
-                <colgroup span="4"></colgroup>
+                <colgroup span="5"></colgroup>
                 <tr>
                     <th>Customer</th>
                     <th>Start date</th>
                     <th>Days</th>
+                    <th>Job Id</th>
                     <th></th>
                 </tr>
                 <tr v-for="job in jobs" v-bind:key="job.customer">
                     <td>{{job.customer}}</td>
                     <td>{{job.startDate}}</td>
                     <td>{{job.days}}</td>
-                    <td><router-link to="/EditJob">Edit</router-link></td>
+                    <td>{{job.efJobId}}</td>
+                    <td><button class="editJobButton" v-on:click="editJob(job.efJobId)">Edit</button></td>
                 </tr>
 
 
@@ -38,6 +40,13 @@
             }
         },
         methods: {
+            editJob(id) {
+
+                console.log(id);
+                sessionStorage.setItem("selectedJobId", id);
+
+                window.location.href = "/EditJob";
+            },
             async getJobs() {
                 /*this.jobs.push({ id: "45", customer: "HelenaChristensen" });*/
                 let url = 'https://localhost:44368/api/jobs';
@@ -45,7 +54,7 @@
                     let response = await fetch(url, {
                         method: 'GET',
                         credentials: 'include',
-                        headers: {
+                       headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem("token"),
                             'Content-Type': 'application/json'
                         }
